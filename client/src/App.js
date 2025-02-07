@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react";
+// src/App.js
+import React, { useState } from 'react';
+import UserList from './UserList';
+import AddUserForm from './AddUserForm';
+import EditUserForm from './EditUserForm';
 
 function App() {
-  const [message, setMessage] = useState("");
+  const [editingUserId, setEditingUserId] = useState(null);
 
-  useEffect(() => {
-    fetch("http://localhost:5000")
-      .then((response) => response.text())
-      .then((data) => setMessage(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+  const handleUserAdded = (newUser) => {
+    setEditingUserId(null);  // Reset editing state
+  };
+
+  const handleUserUpdated = (updatedUser) => {
+    setEditingUserId(null);  // Reset editing state
+  };
 
   return (
     <div>
-      <h1>React + Express</h1>
-      <p>{message}</p>
+      <h1>User Management</h1>
+      <AddUserForm onUserAdded={handleUserAdded} />
+      {editingUserId && <EditUserForm userId={editingUserId} onUserUpdated={handleUserUpdated} />}
+      <UserList />
     </div>
   );
 }
