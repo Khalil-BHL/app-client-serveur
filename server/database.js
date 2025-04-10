@@ -1,18 +1,28 @@
-const sqlite3 = require("sqlite3").verbose();
+const mysql = require('mysql2');
 
-const db = new sqlite3.Database("./users.db", (err) => {
-  if (err) {
-    console.error("Could not connect to database", err);
-  } else {
-    console.log("Connected to the SQLite database.");
-  }
+const db = mysql.createConnection({
+  host: 'mysql',
+  user: 'root',
+  password: 'rootpassword',
+  database: 'usersdb',
+  port: 3306
 });
 
-// Create users table if it doesn't exist
-db.run(`CREATE TABLE IF NOT EXISTS users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  email TEXT
-)`);
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to MySQL database');
+  
+  // Create users table if it doesn't exist
+  db.query(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL
+    )
+  `);
+});
 
 module.exports = db;

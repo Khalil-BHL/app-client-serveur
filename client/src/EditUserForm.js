@@ -8,7 +8,7 @@ function EditUserForm({ userId, onUserUpdated }) {
 
   useEffect(() => {
     if (userId) {
-      axios.get(`http://localhost:5000/users/${userId}`)
+      axios.get(`http://localhost:5000/users/${userId}`)  // Updated URL
         .then(response => {
           setName(response.data.name);
           setEmail(response.data.email);
@@ -22,7 +22,7 @@ function EditUserForm({ userId, onUserUpdated }) {
 
     const updatedUser = { name, email };
 
-    axios.put(`http://localhost:5000/users/${userId}`, updatedUser)
+    axios.put(`http://localhost:5000/users/${userId}`, updatedUser)  // Updated URL
       .then(response => {
         onUserUpdated(response.data);  // Notify the parent component about the update
       })

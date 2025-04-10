@@ -1,0 +1,10 @@
+{
+  "name": "app-client-serveur",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "cd server && npm test",
+    "coverage": "cd server && npm run coverage",
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js"
+  }
+}
